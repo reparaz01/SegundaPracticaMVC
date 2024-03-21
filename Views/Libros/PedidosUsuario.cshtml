@@ -1,0 +1,35 @@
+﻿@model List<SegundaPracticaMVC.Models.ViewPedidos>
+
+<h1>Pedidos del Usuario</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Pedido</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Título del Libro</th>
+            <th>Precio</th>
+            <th>Portada</th>
+            <th>Fecha de Compra</th>
+            <th>Precio Final</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pedido in Model)
+        {
+            <tr>
+                <td>@pedido.IdVistaPedido</td>
+                <td>@pedido.Nombre</td>
+                <td>@pedido.Apellidos</td>
+                <td>@pedido.Titulo</td>
+                <td>@pedido.Precio</td>
+                <td>
+                    <img src="@HelperPathProvider.MapUrlPath(pedido.Portada ,Folders.Libros)" style="height:100px; width:70px" />
+                </td>
+                <td>@pedido.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@pedido.PrecioFinal</td>
+            </tr>
+        }
+    </tbody>
+</table>

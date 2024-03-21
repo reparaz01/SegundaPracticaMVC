@@ -1,0 +1,14 @@
+﻿﻿@using System.Security.Claims
+
+<h1>
+    Nombre: @Context.User.Identity.Name
+</h1>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        @Context.User.FindFirst("Email").ToString()
+    </li>
+    <li class="list-group-item">
+        Id: @Context.User.FindFirst("id").Value
+    </li>
+</ul>

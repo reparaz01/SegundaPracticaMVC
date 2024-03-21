@@ -1,0 +1,41 @@
+﻿@model Libro
+
+@{
+    ViewData["Title"] = "Detalles del Libro";
+    List<int> carrito = Context.Session.GetObject<List<int>>("CARRITO");
+}
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <img src="@HelperPathProvider.MapUrlPath(Model.Portada, Folders.Libros)" width="100px" />
+                <h5 class="card-title">@Model.Titulo</h5>
+                <p class="card-text">Autor: @Model.Autor</p>
+                <p class="card-text">Editorial: @Model.Editorial</p>
+                <p class="card-text">Resumen: @Model.Resumen</p>
+                <p class="card-text">Precio: @Model.Precio</p>
+                <a asp-controller="Libros"
+                   asp-action="Index"
+                   class="btn btn-info">
+                    Volver al Inicio
+                </a>
+                @if (carrito != null && carrito.Contains(Model.IdLibro))
+                {
+                    <button class="btn btn-outline-success" disabled>
+                        Añadido al Carrito
+                    </button>
+                }
+                else
+                {
+                    <a asp-controller="Libros"
+                       asp-action="GuardarLibroCarrito"
+                       asp-route-idLibro="@Model.IdLibro"
+                       class="btn btn-info">
+                        Comprar
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

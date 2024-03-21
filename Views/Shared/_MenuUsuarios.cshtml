@@ -1,0 +1,58 @@
+﻿@using System.Security.Claims;
+@{
+    var cantidadCarrito = Context.Session.GetObject<int>("CANTIDADCARRITO");
+
+    var usernameClaim = User.FindFirst("Foto");
+    var fotoUser = usernameClaim?.Value;
+}
+
+
+@if (Context.User.Identity.IsAuthenticated == false)
+{
+    <li class="nav-item">
+        <a asp-controller="Libros"
+            asp-action="PerfilUsuario"
+            class="nav-link">
+            Log In
+        </a>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a asp-controller="Managed"
+            asp-action="Logout"
+            class="nav-link">
+            Log out <span style="color:blue">
+            </span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-controller="Libros"
+           asp-action="PerfilUsuario"
+           class="nav-link">
+            @Context.User.Identity.Name
+            <span>
+                <img src="@HelperPathProvider.MapUrlPath(fotoUser ,Folders.Usuarios)" style="height:50px; width:50px" />
+            </span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Libros"
+           asp-action="Carrito">
+            Carrito: @cantidadCarrito
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Libros"
+           asp-action="PedidosUsuario"
+           asp-route-id="@Context.User.FindFirst("id").Value">
+            Pedidos
+        </a>
+    </li>
+
+
+}

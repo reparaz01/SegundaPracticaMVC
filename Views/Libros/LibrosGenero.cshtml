@@ -1,0 +1,28 @@
+﻿@model List<Libro>
+
+@{
+    ViewData["Title"] = "Index";
+    List<int> carrito = Context.Session.GetObject<List<int>>("CARRITO");
+}
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <img src="@HelperPathProvider.MapUrlPath(@item.Portada ,Folders.Libros)" style="height:430px; width:100%" />
+                    <h5 class="card-title">@item.Titulo</h5>
+                    <a asp-controller="Libros"
+                       asp-action="DetallesLibro"
+                       asp-route-id="@item.IdLibro"
+                       class="btn btn-info">
+                        Detailles
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
